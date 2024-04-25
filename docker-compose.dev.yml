@@ -25,16 +25,18 @@ services:
     command: npm run db:reset ; npm run dev
     volumes:
       - ./backend/src/:/app/src/
+    restart: always
     depends_on:
       - db
 
   frontend:
     build: ./frontend
+    env_file:
+      - .env
     command: npm run dev
     volumes:
       - ./frontend/src/:/app/src/
       - ./frontend/public/:/app/public/
+    restart: always
     depends_on:
       - backend
-    env_file:
-      - .env
